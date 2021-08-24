@@ -1,0 +1,17 @@
+[server]
+host     = "ftp.example.com"
+user     = "example"
+password = "123456"
+
+[global]
+server_root  = "www"
+local_root   = ".."
+purge_server = true
+
+[ignore]
+paths = [
+  ".git",
+  ".gitignore",
+  "README.md",
+  "secret.txt"
+]
