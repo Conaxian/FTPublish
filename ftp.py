@@ -1,7 +1,10 @@
 from ftplib import FTP_TLS as FTP
 from pathlib import Path
 import os
+from time import time
 import toml
+
+start = time()
 
 path = Path(__file__).parent.resolve()
 
@@ -86,6 +89,9 @@ for path, dirs, files in os.walk(root):
             if not dir_name: continue
             ftp.cwd("..")
 
+end = time() - start
+print_end = int(round(end, 3) * 1000)
 print("Successful upload")
+print(f"Total time elapsed: {print_end}ms")
 
 ftp.quit()
