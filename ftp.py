@@ -5,7 +5,7 @@ import toml
 
 path = Path(__file__).parent.resolve()
 
-cfg_path = path / "ftpconfig.toml"
+cfg_path = path / "config.toml"
 with open(cfg_path, "r") as file:
     data = file.read()
     config = toml.loads(data)
