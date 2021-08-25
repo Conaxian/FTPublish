@@ -13,5 +13,11 @@ paths = [
   ".git",
   ".gitignore",
   "README.md",
-  "secret.txt"
+  "secret.txt",
+  "local"
+]
+
+[keep]
+paths = [
+  "logs"
 ]

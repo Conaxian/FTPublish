@@ -25,21 +25,20 @@ ftp.prot_p()
 
 print("  Successful login")
 
+kept: list[str] = config["keep"]["paths"]
 def recursive_remove(path: str) -> None:
     for name, props in ftp.mlsd(path):
-        if name in (".", ".."):
+        if name in (".", "..") or name in kept:
             continue
         elif props["type"] == "file":
             ftp.delete(f"{path}/{name}")
         elif props["type"] == "dir":
             recursive_remove(f"{path}/{name}")
-    ftp.rmd(path)
 
 global_cfg = config["global"]
 if global_cfg["purge_server"]:
     print("Purging the server root...")
     recursive_remove(global_cfg["server_root"])
-    ftp.mkd(global_cfg["server_root"])
     print("  Successfully purged the server root")
 ftp.cwd(global_cfg["server_root"])
 
