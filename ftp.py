@@ -2,6 +2,7 @@ from ftplib import FTP_TLS as FTP
 from pathlib import Path
 import os
 from time import time
+from io import BytesIO
 import toml
 
 start = time()
@@ -81,7 +82,10 @@ for path, dirs, files in os.walk(root):
     for filename in files:
         print(f"  Uploading {filename}")
         with open(os.path.join(path, filename), "rb") as file:
-            ftp.storbinary(f"STOR {filename}", file)
+            text = file.read()
+            if os.name == "nt":
+                text = text.replace(b"\r\n", b"\n")
+            ftp.storbinary(f"STOR {filename}", BytesIO(text))
 
     if not dir_path in (".", ".."):
         for dir_name in os.path.split(dir_path):
